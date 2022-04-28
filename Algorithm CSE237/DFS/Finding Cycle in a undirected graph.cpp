@@ -5,24 +5,30 @@ using namespace std;
 vector<int> graph[100003];
 int vis[100003];
 int dis[100003];
+vector<pair<int,int>>backEdge;
 bool dfs(int node,int parent)
 {
     vis[node]=1;
     for(int i=0;i<graph[node].size();i++)
     {
         int child=graph[node][i];
-        cout<<child<<"'s father "<<node<<" and grandfather "<<parent<<endl;
-         // node = parent 
-         // parent = grandparent
+        
+        
         if(vis[child]==0)
         {
-            if(dfs(child,node)==true){ //child == father?
+          
+            if(dfs(child,node)==true){ 
                 return true;
             }
         }
-        else
-            if(child!=parent) // child == grandfather?
+        else{
+         
+            if(child!=parent) // back edge found here
+            {
+              backEdge.push_back({child,parent});  
               return true;
+            }
+        }
     }
     return false;
 }
@@ -39,9 +45,19 @@ while(e--)
 }
 int sr;
 cin>>sr;
-if(dfs(sr,-1)) cout<<"Cycle Detected!"<<endl;
-else cout<<"No cycle!"<<endl;
+if(dfs(sr,-1)) {
+   
 
+    cout<<"Cycle Detected!"<<endl;
+    cout<<"Back Edge :";
+      for(auto i:backEdge){
+
+        cout<<i.first<<" "<<i.second<<endl;
+    }
+}
+else {
+    cout<<"No cycle!"<<endl;
+}
 
 }
 /*
