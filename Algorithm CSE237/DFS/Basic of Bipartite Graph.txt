@@ -1,0 +1,44 @@
+Bipartite graph :
+
+Definition : 
+Bipartite graph also known as Bigraph special graph such that one can divide the vertex into 2 disjoint sets such that : 
+1. Each vertex belongs to exactly one of the 2 sets .
+2. Each edge connects vertices of 2 different sets . 
+
+A = {1,3,5}
+B = {2,4,6}
+Example :
+1---2
+3---4  
+5---6
+
+Approach : 
+---------
+First we start a dfs call from a node , mark it as visit , and set the color of the node as 1 . then traverse all of it's adjecent node and set color correspodingly such that adjacent two nodes have different color, 0 or 1. 
+If we find same color in adjacent two nodes then it will not be a bipartite graph. 
+
+source code :
+------------
+int c = 1;
+bool dfs(int node,int c){
+      vis[node] = 1;
+      color[node] =1;
+   
+       for(auto child:graph[node]){
+
+          if(!vis[child]){
+              if(dfs(child,c^1)==false){
+                return false;
+              }
+           }
+          else{
+            if(color[child]==color[node]{
+             return false;
+          }
+      }
+   return true;
+}
+
+
+
+***if the graph contains a cycle of odd lenghth then it is not a bipartite graph
