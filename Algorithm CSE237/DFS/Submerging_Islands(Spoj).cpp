@@ -50,23 +50,22 @@ typedef long long ll;
 using namespace std;
 using namespace std::chrono;
 set<int>cut_vertexs;
-vector<int> node[200003];
+vector<int> node[10003];
 vector<int>current;
-int vis[200003];
+int vis[10003];
 
-int dis[200003];
-int in[200003];
-int low[200003];
+int dis[10003];
+int in[10003];
+int low[10003];
 int timer;
 bool ok=0; 
 void dfs(int x,int p)
 {
-  
   vis[x] = 1;
   in[x]=timer;
   low[x]=timer;
   timer++;
-  int c=0;
+  int child_cnt=0;
   for(ll i=0;i<node[x].size();i++){
      int child = node[x][i];
      if(!vis[child]){
@@ -81,7 +80,7 @@ void dfs(int x,int p)
          else{
             low[x] = min(low[x],low[child]);
          }
-         c++;
+         child_cnt++;
      }
      else{
          // this is back edge 
@@ -93,7 +92,7 @@ void dfs(int x,int p)
         }
      }
   }
-  if(p==-1 && c>1)
+  if(p==-1 && child_cnt>1)
   {
    cut_vertexs.insert(x);
   }
@@ -103,21 +102,37 @@ void dfs(int x,int p)
 
    // memset(ans,0,sizeof(ans));
 void solve(){ 
+
   int n,e;
-  cin>>n>>e;
+  while(1){
+   cin>>n>>e;
+   if(n==0 && e==0){
+      break;
+   }
+
+   for(ll i=1;i<=n;i++){
+      vis[i]=0,node[i].clear(),dis[i]=0,low[i]=0,in[i]=0;
+   }
+   cut_vertexs.clear();
+   timer = 1;
   while(e--){
    int x,y;
    cin>>x>>y;
    node[x].pb(y);
    node[y].pb(x);
   }
- dfs(1,-1);
-
-   cout<<"Articulation Points are : ";
- for(auto i:cut_vertexs){
-   cout<<i<<" ";
+ for(ll i=1;i<=n;i++){ 
+     if(!vis[i]){dfs(i,-1);}
  }
- cout<<endl;
+
+ //   cout<<"Articulation Points are : ";
+ // for(auto i:cut_vertexs){
+ //   cout<<i<<" ";
+ // }
+ cout<<(ll)cut_vertexs.size()<<endl;
+
+
+}
 }
 int main(){
  // test{
