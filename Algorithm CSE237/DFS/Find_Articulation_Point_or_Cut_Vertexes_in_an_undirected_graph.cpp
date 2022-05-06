@@ -113,6 +113,7 @@ void solve(){
   }
  dfs(1,-1);
 
+   cout<<"Articulation Points are : ";
  for(auto i:cut_vertexs){
    cout<<i<<" ";
  }
