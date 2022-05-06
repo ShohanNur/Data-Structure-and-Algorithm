@@ -1,9 +1,0 @@
-Bridge : 
-A bridge is defined as an edge which when removed makes graph disconnected
-or more precisely it increases the number of connected components.
-
-DFS Tree : 
-When we remove all back edges from a graph then we find a DFS tree of that
-graph . 
-A back edge can not be a bridge , because removing back edge from a graph, 
-then number of connected components in graph will not increase.
