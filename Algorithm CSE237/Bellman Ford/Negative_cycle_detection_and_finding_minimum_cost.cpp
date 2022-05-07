@@ -54,25 +54,32 @@ int par[sz], cost[sz];
 int bellmanford(int st, int en, int n)
 {
     cost[st] = 0;
-    for (int k = 1; k<n; k++)
+    for (int k = 0; k<n-1; k++) // relaxation n-1 times here
     {
-        for (int i = 0; i<n; i++)
-            for (int j = 0; j<adj[i].size(); j++)
-                if(cost[i] + w[i][j] < cost[ adj[i][j] ])
-                {
-                    cost[ adj[i][j] ] = cost[i] + w[i][j];
-                    par[ adj[i][j] ] = i;///path tracking
-                }
-    }
+        for (int i = 0; i<n; i++){
+            for (int j = 0; j<adj[i].size(); j++){
+                int child = adj[i][j];
 
-    for (int i = 0; i<n; i++)
-        for (int j = 0; j<adj[i].size(); j++)
-            if(cost[i] + w[i][j] < cost[ adj[i][j] ])
+                if(cost[i] + w[i][j] < cost[child])
+                {
+                    cost[child] = cost[i] + w[i][j];
+                    par[child] = i;///path tracking
+                }
+        }
+    }
+   }
+ 
+    for (int i = 0; i<n; i++){
+        for (int j = 0; j<adj[i].size(); j++){
+             int child = adj[i][j];
+            if(cost[i] + w[i][j] < cost[child])
             {
                 cout << "Shortest Path could not be determined." << endl;
                 cout << "Negative Cycle Detected!" << endl;
                 return -inf;
             }
+    }
+ } 
     return cost[en];
 }
 void init(int n)
