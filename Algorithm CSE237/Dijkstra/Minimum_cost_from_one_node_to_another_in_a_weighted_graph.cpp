@@ -50,10 +50,11 @@ using namespace std;
 vector<int> adj[sz], w[sz];
 
 int par[sz], cost[sz];
-
+map<ll,ll>mp;
 int dijkstra(int st, int en)
 {
     priority_queue< pair<int,int>, vector< pair<int,int> >, greater< pair<int,int> > > pq;
+    
     pq.push({0,st});/// first -> cost of parent , second-> parent node
     cost[st] = 0;
     int u, c;
@@ -65,11 +66,14 @@ int dijkstra(int st, int en)
         if(c<=cost[u]){
         for (int i = 0; i < adj[u].size(); i++)
         {
-            if(c + w[u][i] < cost[ adj[u][i] ])
+            int child = adj[u][i];
+            // c = cost of parent , w[u][i] = cost from parent to child , 
+            if(c + w[u][i] < cost[child])
             {
-                cost[ adj[u][i] ] = c + w[u][i];
-                pq.push({cost[ adj[u][i] ], adj[u][i]});
-                par[ adj[u][i] ] = u;
+                cost[child] = c + w[u][i];
+                pq.push({cost[child], child});
+                par[child] = u;
+                mp[child]=u;
              }
 
         }
@@ -109,14 +113,12 @@ int main()
 ///path printing :
     x = en-1;
     vector<int>res;
-   // cout<<x<<endl;
+ 
 
-    while(~x)
+    while(x!=-1)
     {
         res.push_back(x+1);
-         //cout<<x<<"***"<<par[x]<<endl;
         x = par[x];
-        //cout<<x<<"***"<<par[x]<<endl;
     }
 
 
@@ -124,7 +126,10 @@ int main()
     cout<< "The path: ";
     for (int i = 0; i<res.size(); i++)
         cout << res[i] << ",\n"[i==res.size()-1];
-
+    
+    for(auto i:mp){
+        cout<<"Parent of "<<i.f<<" is "<<i.s<<endl;
+    }
     return 0;
 }
 /**
