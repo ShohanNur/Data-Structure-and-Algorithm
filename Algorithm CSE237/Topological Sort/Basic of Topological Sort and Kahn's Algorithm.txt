@@ -1,0 +1,22 @@
+A topological ordering is an ordering of the noddes in a directed
+graph where for each directed edge from A to node B , node A appears before node B in the ordering . 
+//https://www.youtube.com/watch?v=cIBFEhD77b4
+Kahn's algorithm is a simple topological sort algorithm can find a topogical ordering in O(V+E) time!
+
+N.B: Topological orderings are NOT unique.
+
+Only certain types of graphs have a topological orderings. These are Directed Acyclic Graphs (DAGs).
+
+Kahn's Algorithm Intuition : 
+---------------------------
+The intuition behind Kahn's algorithm is to repeatedly remove nodes without any dependencies from the graph and add them to the topological ordering.
+As nodes without dependencies (any their outgoing edges) are removed from the graph, new nodes without dependencies should become free. 
+We repeat removing nodes without dependencies from the graph until all nodes are processed, or a cycle is discovered.
+
+Process :
+========
+Add all nodes with a indegree of 0 (no incomong edges) to the queue. 
+These are all the nodes in the graph with no dependencies. 
+Then remove one node from the queue to the topological ordering and decreases indegrees of all affected nodes adjecent to it. 
+If indegree of any node becomes zero now, we added it in the top of the queue.  
+Repeat the process until the queue is finally empty and indegree of each node becomes zero.

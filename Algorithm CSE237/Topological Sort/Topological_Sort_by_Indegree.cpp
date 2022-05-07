@@ -51,11 +51,11 @@ using namespace std;
 
 vector<int>adj[100001];
 int indeg[100001];
-
+vector<int>res;
 void toposort(int n)
 {
     queue<int>q;
-    vector<int>res;
+
     for (int i = 1; i<=n; i++)
         if(indeg[i]==0) q.push(i);
   
@@ -68,12 +68,6 @@ void toposort(int n)
         for (int i = 0; i<adj[x].size(); i++)
             if( --indeg[ adj[x][i] ]==0 ) q.push(adj[x][i]);
     }
-   
-    for (int i = 0; i<n; i++)
-     {
-        cout<<res[i]<<" ";
-     }
-     cout<<endl;
    
 }
 
@@ -96,6 +90,12 @@ int main()
     }
 
     toposort(n);
+
+     for (int i = 0; i<n; i++)
+     {
+        cout<<res[i]<<" ";
+     }
+     cout<<endl;
   
 }
 /**
