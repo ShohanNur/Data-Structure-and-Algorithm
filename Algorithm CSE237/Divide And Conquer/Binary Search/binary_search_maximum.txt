@@ -1,0 +1,10 @@
+while(low<=high)
+    {
+      ll mid=low+(high-low)/2;
+         
+          if(check(mid))
+            ans = mid;
+            low=mid+1;
+          else
+            high=mid-1;
+    }
