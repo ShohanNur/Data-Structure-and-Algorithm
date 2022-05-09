@@ -84,7 +84,7 @@ ll dijkstra(ll st, ll en)
 
 void init(ll n)
 {
-    for (ll i = 0; i<n; i++)
+    for (ll i =1; i<=n; i++)
         par[i] = -1, cost[i] = inf;
 }
 
@@ -93,11 +93,11 @@ int main()
     ll x, y, z, n, m, st, en;
     cin >> n >> m;
     init(n);
-    for (ll i  = 0; i<m;i++ )
+    for (ll i  = 1; i<=m;i++ )
     {
         cin >> x >> y >> z;
-        x--;
-        y--;
+        //x--;
+        //y--;
         adj[x].push_back(y);
         adj[y].push_back(x);
         w[x].push_back(z);
@@ -107,7 +107,7 @@ int main()
     //cin >> st >> en;
     st=1;
     en=n;
-    x = dijkstra(st-1,en-1);
+    x = dijkstra(st,en);
     
    
 
@@ -117,21 +117,21 @@ int main()
     }
     else{
     cout << "The minimum path cost from " << st << " to " << en <<" is = " << x << endl;
-    x = en-1;
-    vector<int>res;
+    x = en;
+    vector<ll>res;
  
 
-    while(x!=-1)
+    while(~x)
     {
-        res.push_back(x+1);
+        res.push_back(x);
         x = par[x];
     }
 
 
     reverse(res.begin(),res.end());
-    cout<< "The path: ";
+    //cout<< "The path: ";
     for (ll i = 0; i<res.size(); i++)
-        cout << res[i] << " \n"[i==res.size()-1];
+        cout << res[i] << " \n"[i==res.size()];
     
      
     return 0;
