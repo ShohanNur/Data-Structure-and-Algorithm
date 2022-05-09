@@ -36,37 +36,37 @@
 #define pi       2*acos(0.0)
 #define f        first
 #define s        second
-#define inf      1e9
+#define inf      1000000000000
 #define mod      1000000007
 #define all(x)   x.begin(), x.end()
 #define rev(x)   x.rbegin(),x.rend()
 #define spc(x)   cout<<fixed<<setprecision(x)
 #define fastio   {ios_base::sync_with_stdio(false);cin.tie(NULL);}
 #define test     ll t; cin>>t; while(t--)
-#define sz       100003
+#define sz       200003
 typedef long long ll;
 using namespace std;
 
-vector<int> adj[sz], w[sz];
+vector<ll> adj[sz], w[sz];
 
-int par[sz], cost[sz];
+ll par[sz], cost[sz];
 map<ll,ll>mp;
-int dijkstra(int st, int en)
+ll dijkstra(ll st, ll en)
 {
-    priority_queue< pair<int,int>, vector< pair<int,int> >, greater< pair<int,int> > > pq;
+    priority_queue< pair<ll,ll>, vector< pair<ll,ll> >, greater< pair<ll,ll> > > pq;
     
     pq.push({0,st});/// first -> cost of parent , second-> parent node
     cost[st] = 0;
-    int u, c;
+    ll u, c;
     while(!pq.empty())
     {
         c = pq.top().first;///cost of parent node
         u = pq.top().second;///parent node
         pq.pop();
         if(c<=cost[u]){
-        for (int i = 0; i < adj[u].size(); i++)
+        for (ll i = 0; i < adj[u].size(); i++)
         {
-            int child = adj[u][i];
+            ll child = adj[u][i];
             // c = cost of parent , w[u][i] = cost from parent to child , 
             if(c + w[u][i] < cost[child])
             {
@@ -82,18 +82,18 @@ int dijkstra(int st, int en)
     return cost[en];
 }
 
-void init(int n)
+void init(ll n)
 {
-    for (int i = 0; i<n; i++)
+    for (ll i = 0; i<n; i++)
         par[i] = -1, cost[i] = inf;
 }
 
 int main()
 {
-    int x, y, z, n, m, st, en;
+    ll x, y, z, n, m, st, en;
     cin >> n >> m;
     init(n);
-    for (int i  = 0; i<m;i++ )
+    for (ll i  = 0; i<m;i++ )
     {
         cin >> x >> y >> z;
         x--;
@@ -104,13 +104,19 @@ int main()
         w[y].push_back(z);
     }
 
-    cin >> st >> en;
-
+    //cin >> st >> en;
+    st=1;
+    en=n;
     x = dijkstra(st-1,en-1);
-
-    cout << "The minimum path cost from " << st << " to " << en <<" is = " << x << endl;
+    
+   
 
 ///path printing :
+    if(x==inf){
+        cout<<"No path exist"<<endl;
+    }
+    else{
+    cout << "The minimum path cost from " << st << " to " << en <<" is = " << x << endl;
     x = en-1;
     vector<int>res;
  
@@ -124,13 +130,12 @@ int main()
 
     reverse(res.begin(),res.end());
     cout<< "The path: ";
-    for (int i = 0; i<res.size(); i++)
-        cout << res[i] << ",\n"[i==res.size()-1];
+    for (ll i = 0; i<res.size(); i++)
+        cout << res[i] << " \n"[i==res.size()-1];
     
-    for(auto i:mp){
-        cout<<"Parent of "<<i.f<<" is "<<i.s<<endl;
-    }
+     
     return 0;
+}
 }
 /**
 7 10
