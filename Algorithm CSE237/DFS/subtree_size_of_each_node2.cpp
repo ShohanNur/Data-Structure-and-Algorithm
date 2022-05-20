@@ -1,13 +1,13 @@
 //DFS
-//how many childs can a node have including itself?
+//how many childs can a graph have including itself?
  
 
 #include<bits/stdc++.h>
 typedef long long ll;
 using namespace std;
-vector<int> node[200003];
-int vis[200003];
-int dis[200003];
+vector<int> graph[100003];
+int vis[100003];
+int dis[100003];
 
 void dfs(ll x){
    // finding all subtree size of each nodes
@@ -21,6 +21,7 @@ void dfs(ll x){
       }
    }
 }
+
 int main()
 {
 int n,e;
@@ -31,8 +32,8 @@ while(e--)
 {
     int x,y;
     cin>>x>>y;
-    node[x].push_back(y);
-    node[y].push_back(x);
+    graph[x].push_back(y);
+    graph[y].push_back(x);
 }
 
 dfs(1);
@@ -49,4 +50,5 @@ for(int i=1;i<=n;i++)
 3 4
 3 5
 2 6
+
 */
