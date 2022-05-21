@@ -1,0 +1,32 @@
+Euler path is a path , that visits each edge exactly once. 
+Euler cycle (circuit) is a closed Euler path. It begins and ends with the same vertex.
+Eulerian graph : A graph that contains euler cycle. 
+Semi - Eulerian Graph : A graph that contains euler path
+
+Condition : All vertices with non-zeo degree should be connceted.
+
+# Euler path : When 0 or exactly 2 vertices have odd degree.
+# Euler Circuit : When all verties have even degree.
+
+Fleury's algorithm for euler path or cylce : 
+-------------------------------------------
+
+if isEulerian() == false 
+  print("not eulerian")
+
+v = first odd degree vertex or any random vertex with even degree 
+
+printEuler(v) : 
+ 
+  for every child of v : 
+    if((isValidNextEdge(v,child)) 
+       print(v-child)
+      removeEdge(v,child)
+    printEuler(child)
+
+bool isValidNextEdge(v,child):
+
+return true if :
+1. If child id the only adjacent vertex 
+2. If there are multiple adjacents and edge  v - child is not a bridge .
+
