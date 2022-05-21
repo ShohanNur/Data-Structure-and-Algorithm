@@ -1,18 +1,18 @@
 #include <iostream>
 #define sz 1000
-#define inf (1<<20)
+#define inf 1000000000000000000
 using namespace std;
 
-int adj[sz][sz], Next[sz][sz];
-
-void printMatrix(int n)
+ll adj[sz][sz], Next[sz][sz];
+ll n,m,k;
+void printMatrix(ll n)
 {
     for (int i = 0; i<n; i++)
         for (int j = 0; j<n; j++)
             cout << adj[i][j] << " \n"[j==n-1];
 }
 
-void warshall(int n)
+void warshall(ll n)
 {
     for(int k = 0; k < n; k++)
         for (int i = 0; i < n; i++)
@@ -23,7 +23,7 @@ void warshall(int n)
                     Next[i][j] = Next[i][k];///tracking path
                 }
 }
-void init(int n)
+void init(ll n)
 {
     for (int i = 0; i<n; i++)
         for (int j = 0; j<n; j++)
@@ -37,35 +37,35 @@ void init(int n)
 }
 int main()
 {
-    int n, m, x, y, w;
-    cin >> n >> m;
+    ll n, m, x, y, w;
+    cin >> n >> m >> k;
     for (int i = 0; i<m; i++)
     {
         cin >> x >> y >> w;
-        adj[x][y] = w;
-        adj[y][x] = w;
+        adj[x][y] = min(w,adj[x][y]);
+        adj[y][x] = min(w,adj[y][x]);
     }
     init(n);
-    cout << "Before Running Warshall\'s Algo:\n";
-    printMatrix(n);
+    //cout << "Before Running Warshall\'s Algo:\n";
+    //printMatrix(n);
     warshall(n);
-    cout << "After Running Warshall\'s Algo:\n";
-    printMatrix(n);
+    //cout << "After Running Warshall\'s Algo:\n";
+    //printMatrix(n);
 
-    cin >> m;
+    //cin >> m;
 
-    for (int i = 0; i < m; i++)
+    for (int i = 0; i < k; i++)
     {
         cin >> x >> y;
-        cout << "Path Cost = " << adj[x][y] << endl;
-        cout << "Path from " << x << " to " << y <<":" << endl;
-        cout << x;
-        while(x != y)
-        {
-            x = Next[x][y];
-            cout << " " << x ;
-        }
-        cout << endl;
+        cout << adj[x][y] << endl;
+        //cout << "Path from " << x << " to " << y <<":" << endl;
+        // cout << x;
+        // while(x != y)
+        // {
+        //     x = Next[x][y];
+        //     cout << " " << x ;
+        // }
+        // cout << endl;
     }
     return 0;
 }
