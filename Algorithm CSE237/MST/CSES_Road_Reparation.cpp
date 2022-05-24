@@ -116,18 +116,7 @@ int main(){
     }
  
   } 
-  // if(st.size()==n){
-  //   for(ll i=1;i<n;i++){
-  //       cout<<i<<" ";
-  //   }
-  //   cout<<endl;
-  // }
-  // else{
-  //    for(auto i:st){
-  //       cout<<i<<" ";
-  //    }
-  //    cout<<endl;
-  // }
+
   for(ll i=1;i<=n;i++){
      if(find(i)==i){
         cnt++;

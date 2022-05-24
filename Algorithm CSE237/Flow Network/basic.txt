@@ -1,0 +1,78 @@
+Network : 
+A network is a directed graph G with vertex set V and edge set E combine with a function C which maps all edges (say e) to some non-negative integer(or real numbers) which is called capacity of edge e. 
+
+Flow Network : 
+
+Additionally in the network if we label 2 nodes/vertices as source and sink this is called a flow network. 
+
+source = indegree 0 
+sink = outdegree 0
+
+Flow = A function F which maps all edges (say e) to some non-negative integer(or real numbers) which is called the flow through edge e. 
+The function has to fulfull 2 conditions.
+
+Condition 1 :
+flow of an edge can not exceed the capacity of that edge.
+
+f(e) <= c(e) [numenator should be less than equals to denominator] ex:6/7
+
+Condition 2 :
+
+For all vertex u (except source and sink) , sum of in-flow should be equal to sum of out-flow. 
+
+
+for non-source-sink nodes inflow = outflow 
+for source-sink nodes outflow of source = outflow of sink
+
+
+What is Maximum-flow ? 
+
+A maximum-flow is the flow of maximum possible value from source to sink.
+
+Reverse Edge and Residual Capacity : 
+------------------------------------
+
+Residual capacity : 
+Residual capacity of an edge is defined as :
+(capacity - flow) 
+If there is flow along an edge is x 
+and capacity is c .
+then residual capacity is  : c - x. (remaining capacity)
+
+Reverse edge residual capacity : 
+-------------------------------
+Residual capacity of reverse edge is defined as :
+(capacity of reverse edge - flow in reverse edge) 
+ 
+if flow of edge (u,v) = x.
+then flow of edfe(v,u)=-x.
+
+capacity of reverse edge = 0.
+
+
+Ford - Fulkerson algorithm : 
+----------------------------
+
+Step 1: Initizlize flow through each edge as 0.
+
+Step 2: find an augmenting path from source to sink.
+
+[Augmented path = valid path to go from source to sink either using only residual graph or both both residual and reverse residual graph] 
+
+Time - complexicity : O(EF) where E represents edge set and F represents flow set.
+[time complexicity dependent upon maximum flow]
+
+Edmonds-karp Algorithm :
+------------------------
+Edmonds-karp algorithm is just implementation of Ford-Fulkerson method that uses BFS
+to find the augmented path. 
+
+Time-complexicity : O(VE^2) , V = set of vertex set and E = set of edge set .
+
+
+Process : 
+--------
+Step 1 : Initialize the residual matrix and initialize max flow to 0
+
+step 2 : keep finding augmenting path in increment max-flow. Stop when there is no augmenting path.
+        
