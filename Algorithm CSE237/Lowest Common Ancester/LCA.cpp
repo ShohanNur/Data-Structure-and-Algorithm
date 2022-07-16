@@ -83,6 +83,8 @@ ll lca_query(ll p,ll q){
     	if((1<<next)>dis[p]) break;
     	log++;
     }
+    
+    // here log means minimum ceil value of log(dis(p))
 
      for (ll i = log; i >= 0; i--)
           if (dis[p] - (1 << i) >= dis[q])
@@ -90,12 +92,16 @@ ll lca_query(ll p,ll q){
 
       if (p == q)
           return p;
-
+      //p==q means here we find the lowest common ancester and return  
         for (ll i = log; i >= 0; i--)
           if (Table[p][i] != -1 && Table[p][i] != Table[q][i])
               p = Table[p][i], q = Table[q][i];
+     
 
-      return par[p];
+   
+      return par[p]; 
+      // if p==q not meets then return parent of p or q 
+
 }
 void lca_init(ll n){
 	memset(Table,-1,sizeof Table);
@@ -104,7 +110,7 @@ void lca_init(ll n){
 		Table[i][0] = par[i];
 	}
 
-	for(ll j=0; 1<<j<n;j++){
+	for(ll j=0; (1<<j)<n;j++){
 		for(ll i=0;i<n;i++){
 			if(Table[i][j-1]!=-1){
 				Table[i][j] = Table[Table[i][j-1]][j-1];
@@ -117,17 +123,17 @@ int main(){
  cin>>n;
  for(ll i=0;i<n-1;i++){
    cin>>x>>y;
-   //x--,y--;
+  // x--,y--;
    graph[x].pb(y);
    graph[y].pb(x);
  }
- dfs(0,0,0);
+ dfs(0,0,-1);
  lca_init(n);
 
  cin>>m;
  while(m--){
  cin>>x>>y;	
- //x--,y--;
+// x--,y--;
  //printf( "%d\n", lca_query(x,y)+1);
  printf( "%d\n", lca_query(x,y));
 
