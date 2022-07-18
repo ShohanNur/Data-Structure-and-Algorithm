@@ -51,52 +51,39 @@ typedef long long ll;
 using namespace std;
 using namespace std::chrono;
 
-int main(){
-  int n,m; cin>>n>>m;
 
-  int p[n+2],w[n+2];
-  p[0]=0;
-  w[0]=0;
-  for(int i=1;i<=n;i++){
-     cin>>p[i];
-  }
-  for(int i=1;i<=n;i++){
-    cin>>w[i];
-  }
-  int dp[n+2][m+2];
+ll a[101];
+ll n;
+ll dp[100][100];
 
-  for(int i=0;i<=n;i++){
-    for(int j=0;j<=m;j++){
-        if(i==0 || j==0){
-          dp[i][j]=0;
-        }
-        else if(w[i]<=j){
-           dp[i][j] = max(dp[i-1][j], p[i]+dp[i-1][j-w[i]]);
-        }
-        else{
-          dp[i][j] = dp[i-1][j];
-        }
+ll matrixChain(ll i, ll j){
+    if(i==j){
+        return 0;
     }
-  }
-  cout<<dp[n][m]<<endl;
+    if(~dp[i][j]){
+        return dp[i][j];
+    }
 
-  ll jj = m;
-  ll res = dp[n][m];
+    dp[i][j] = LLONG_MAX;
 
-  for(int i=n;i>=1&&res>=1;i--){
-      if(res == dp[i-1][jj]){
-        continue;
+    for(ll k= i ; k < j; k++){
+        dp[i][j] = min(dp[i][j],matrixChain(i,k)+matrixChain(k+1,j)+a[i-1]*a[j]*a[k]);
+    }
+    return dp[i][j];
+}
+int main(){
+      cin>>n;
+      for(int i=0;i<n;i++){
+        cin>>a[i];
       }
-      else{
-         cout<<w[i]<<" ";
+      memset(dp, -1 , sizeof dp);
 
-         res = res-p[i];
-         jj = jj-w[i];
-      }
-  }
+      cout<<matrixChain(1,n-1)<<endl;
 }
 /*
-4 8
-1 2 5 6
-2 3 4 5 
+5
+3 2 4 2 5
+
+here 4 matrix : 3 x 2 , 2 x 4 , 4 x 2 , 2 x 5
+
 */
