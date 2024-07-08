@@ -23,7 +23,9 @@ bool dfs(int node)
             }
         }
         else{
+             if(vis[child]==1){
               return true;
+             }
         }
     }
     vis[node]=2;

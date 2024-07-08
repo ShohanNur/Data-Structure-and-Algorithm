@@ -14,7 +14,7 @@
 #define spc(x)   cout<<fixed<<setprecision(x)
 #define fastio   {ios_base::sync_with_stdio(false);cin.tie(NULL);}
 #define test     ll t; cin>>t; while(t--)
-#define sz       400003
+#define sz       200003
 #define MXN      1000001
 
 typedef long long ll;
@@ -122,8 +122,15 @@ void solve(){
     previousGreaterElement(a,n);
     previousSmallerElement(a,n);
     
+    map<ll,ll>mp;
+
     for(int i=0;i<n;i++){
-       cout<<nextSmaller[i]<<" "<<prevSmaller[i]<<" "<<nextGreater[i]<<" "<<prevGreater[i]<<endl;   
+       // cout<<nextSmaller[i]<<" "<<prevSmaller[i]<<" "<<nextGreater[i]<<" "<<prevGreater[i]<<endl;  
+       mp[nextGreater[i]]++; 
+    }
+
+    for(int i=0;i<n;i++){
+          cout<<mp[i]<<endl;
     }
 }
 int main() {
